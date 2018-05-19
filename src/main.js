@@ -13,11 +13,12 @@ class Main extends Component {
     }, 15000);
   }
   render() {
+    let show = false;
     return (
       <div>
         <button id="change-chart">Change to Classic</button>
         <Router>
-          <Route path="/" render={() => <Chart />} />
+          <Route path="/" render={() => <Chart show={show} />} />
         </Router>
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 const Chart = () => {
   return <div id="draw" />;
@@ -7,14 +8,15 @@ const Chart = () => {
 
 const mapStateToProps = ({ readings }, drawStuff) => {
   let scatterPoints = [];
-  for (let i = 0; i < readings.length; i++) {
-    scatterPoints.push([
-      readings[i].createdAt,
-      readings[i].degrees,
-      readings[i].precentage
-    ]);
+  if (readings.length) {
+    for (let i = 0; i < readings.length; i++) {
+      scatterPoints.push([
+        moment(readings[i].createdAt).format('hh:mm:ss'),
+        readings[i].degrees,
+        readings[i].precentage
+      ]);
+    }
   }
-  console.log(scatterPoints);
 
   google.charts.load('current', { packages: ['corechart', 'scatter'] });
   google.charts.setOnLoadCallback(drawStuff);
@@ -44,7 +46,7 @@ const mapStateToProps = ({ readings }, drawStuff) => {
       axes: {
         y: {
           Temp: { label: 'Temp' },
-          humidty: { label: 'Humidity' }
+          Humidity: { label: 'Humidity' }
         }
       }
     };
@@ -59,8 +61,8 @@ const mapStateToProps = ({ readings }, drawStuff) => {
 
       vAxes: {
         // Adds titles to each axis.
-        0: { title: 'TEMP °C' },
-        1: { title: 'HUMIDITY %' }
+        0: { title: 'TEMP °C', format: '##.##' },
+        1: { title: 'HUMIDITY %', format: '##.##' }
       }
     };
 

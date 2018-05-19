@@ -13,6 +13,7 @@ const { Reading } = db.model;
 // })
 app.use('/', express.static(path.join(__dirname + '/dist')));
 app.use('/dist', express.static(path.join(__dirname + '/node_modules')));
+app.use('/style.css', express.static(path.join(__dirname, '/style.css')));
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
