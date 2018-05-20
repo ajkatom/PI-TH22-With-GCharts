@@ -10,15 +10,14 @@ class Main extends Component {
     reading();
     setInterval(() => {
       reading();
-    }, 15000);
+    }, 7000);
   }
   render() {
-    let show = false;
     return (
       <div>
         <button id="change-chart">Change to Classic</button>
         <Router>
-          <Route path="/" render={() => <Chart show={show} />} />
+          <Route path="/" render={() => <Chart />} />
         </Router>
       </div>
     );

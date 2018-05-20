@@ -24,7 +24,6 @@
         "node-dht-sensor": "0.0.34",
         "nodemon": "^1.17.1",
         "pg": "^7.4.1",
-        "pm2": "^2.10.4",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-redux": "^5.0.7",

@@ -1,5 +1,17 @@
-#draw {
-    transition: opacity 3.0s;
-    opacity: 1;
-    /* visibility: hidden; */
-}
+ /* #draw {
+     width: 100px;
+     height: 100px;
+    animation: 
+   
+ }
+ 
+ #drawshow {
+     width: 100px;
+     height: 100px;
+     -webkit-transition: 0.5s;
+     -moz-transition: 0.5s;
+     -o-transition: 0.5s;
+     transition: 0.5s;
+     opacity: 1;
+     visibility: visible;
+ } */

@@ -27,7 +27,6 @@ const reducer = (state = initState, action) => {
   switch (action.type) {
     case POST_READING:
       state = Object.assign({}, state, { readings: action.readings });
-      console.log(state);
       break;
   }
   return state;

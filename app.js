@@ -20,7 +20,7 @@ app.get('/', (req, res, next) => {
 
 setInterval(() => {
   th();
-}, 5000);
+}, 3000);
 
 app.get('/reading', (req, res, next) => {
   Reading.findAll()

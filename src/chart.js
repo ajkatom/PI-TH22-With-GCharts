@@ -2,22 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-const Chart = () => {
-  return <div id="draw" />;
-};
-
-const mapStateToProps = ({ readings }, drawStuff) => {
-  let scatterPoints = [];
-  if (readings.length) {
-    for (let i = 0; i < readings.length; i++) {
-      scatterPoints.push([
-        moment(readings[i].createdAt).format('hh:mm:ss'),
-        readings[i].degrees,
-        readings[i].precentage
-      ]);
-    }
-  }
-
+let flag = false;
+const Chart = ({ scatterPoints }) => {
   google.charts.load('current', { packages: ['corechart', 'scatter'] });
   google.charts.setOnLoadCallback(drawStuff);
 
@@ -33,6 +19,11 @@ const mapStateToProps = ({ readings }, drawStuff) => {
     data.addRows(scatterPoints);
 
     let materialOptions = {
+      animation: {
+        startup: true,
+        duration: 1000,
+        easing: 'inAndOut'
+      },
       chart: {
         title: 'TEMP & HUMIDIY',
         subtitle: 'based on raspberry PI sensor'
@@ -52,7 +43,13 @@ const mapStateToProps = ({ readings }, drawStuff) => {
     };
 
     let classicOptions = {
+      animation: {
+        startup: true,
+        duration: 1000,
+        easing: 'inAndOut'
+      },
       width: 800,
+      height: 500,
       series: {
         0: { targetAxisIndex: 0 },
         1: { targetAxisIndex: 1 }
@@ -65,7 +62,6 @@ const mapStateToProps = ({ readings }, drawStuff) => {
         1: { title: 'HUMIDITY %', format: '##.##' }
       }
     };
-
     const drawMaterialChart = () => {
       var materialChart = new google.charts.Scatter(draw);
       materialChart.draw(
@@ -74,6 +70,7 @@ const mapStateToProps = ({ readings }, drawStuff) => {
       );
       button.innerText = 'Change to Classic';
       button.onclick = drawClassicChart;
+      flag = !flag;
     };
 
     const drawClassicChart = () => {
@@ -81,13 +78,33 @@ const mapStateToProps = ({ readings }, drawStuff) => {
       classicChart.draw(data, classicOptions);
       button.innerText = 'Change to Material';
       button.onclick = drawMaterialChart;
+      flag = !flag;
     };
-
-    drawMaterialChart();
+    console.log(flag);
+    if (!flag) {
+      drawClassicChart();
+      flag = !flag;
+    } else {
+      drawMaterialChart();
+      flag = !flag;
+    }
+  }
+  return <div id="draw" />;
+};
+const mapStateToProps = ({ readings }) => {
+  let scatterPoints = [];
+  if (readings.length) {
+    for (let i = 0; i < readings.length; i++) {
+      scatterPoints.push([
+        moment(readings[i].createdAt).format('hh:mm:ss'),
+        readings[i].degrees,
+        readings[i].precentage
+      ]);
+    }
   }
 
   return {
-    drawStuff
+    scatterPoints
   };
 };
 
